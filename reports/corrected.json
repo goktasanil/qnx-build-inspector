@@ -1,0 +1,283 @@
+{
+  "tool": "QNX Build Inspector",
+  "version": "0.1.0",
+  "schema_version": 1,
+  "analysis": "partial-static-analysis",
+  "target": "QNX OS 8.0 mkifs buildfiles",
+  "input": "corrected.buildfile",
+  "compiler_or_runtime_validation": false,
+  "host_file_checks": false,
+  "summary": {
+    "files": 2,
+    "entries": 8,
+    "launches": 3,
+    "error": 0,
+    "warning": 0,
+    "info": 0
+  },
+  "coverage_limits": [],
+  "findings": [],
+  "entries": [
+    {
+      "target": "/proc/boot/.boot",
+      "source": null,
+      "kind": "bootstrap",
+      "attributes": {
+        "virtual": "x86_64,bios"
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 3,
+        "column": 1
+      },
+      "content": [
+        [
+          4,
+          "    startup-x86"
+        ],
+        [
+          5,
+          "    PATH=/proc/boot:/bin"
+        ],
+        [
+          6,
+          "    procnto-smp-instr"
+        ]
+      ],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/telemetry",
+      "source": "telemetry.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "uid": "100",
+        "gid": "100",
+        "perms": "0750"
+      },
+      "position": {
+        "file": "components.buildfile",
+        "line": 2,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/on",
+      "source": "on.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "uid": "0",
+        "gid": "0",
+        "perms": "0755"
+      },
+      "position": {
+        "file": "components.buildfile",
+        "line": 3,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/etc/telemetry.conf",
+      "source": null,
+      "kind": "file",
+      "attributes": {
+        "search": "payload"
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 10,
+        "column": 1
+      },
+      "content": [
+        [
+          11,
+          "interval=5"
+        ]
+      ],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/log",
+      "source": "/var/log",
+      "kind": "dir",
+      "attributes": {
+        "search": "payload",
+        "type": "dir"
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 13,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/var/log/startup.txt",
+      "source": "notice.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload"
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 14,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/diagnostic",
+      "source": "diagnostic.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "perms": "0750",
+        "uid": "100",
+        "gid": "100"
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 15,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/.script",
+      "source": null,
+      "kind": "script",
+      "attributes": {
+        "search": "payload",
+        "script": true
+      },
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 16,
+        "column": 1
+      },
+      "content": [
+        [
+          17,
+          "    display_msg Starting synthetic demo"
+        ],
+        [
+          18,
+          "    on -u 100:100 /proc/boot/telemetry &"
+        ],
+        [
+          19,
+          "    waitfor /dev/storage 5.0"
+        ],
+        [
+          20,
+          "    diagnostic &"
+        ]
+      ],
+      "selected": true
+    }
+  ],
+  "launches": [
+    {
+      "command": "on",
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 18,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/on",
+        "/bin/on"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "/proc/boot/telemetry",
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 18,
+        "column": 5
+      },
+      "background": true,
+      "identity": "requested:100:100",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/telemetry"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "diagnostic",
+      "position": {
+        "file": "corrected.buildfile",
+        "line": 20,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/diagnostic",
+        "/bin/diagnostic"
+      ],
+      "modifiers": {}
+    }
+  ],
+  "dependencies": [
+    {
+      "kind": "include",
+      "source": "components.buildfile",
+      "from": {
+        "file": "corrected.buildfile",
+        "line": 9,
+        "column": 1
+      },
+      "resolved": "components.buildfile"
+    }
+  ],
+  "sources": {
+    "corrected.buildfile": [
+      "# Original synthetic review fixture after configuration corrections.",
+      "# Placeholder payloads are text, not executables. Not a bootable image.",
+      "[virtual=x86_64,bios] .boot = {",
+      "    startup-x86",
+      "    PATH=/proc/boot:/bin",
+      "    procnto-smp-instr",
+      "}",
+      "[search=payload]",
+      "[+include] components.buildfile",
+      "/etc/telemetry.conf = {",
+      "interval=5",
+      "}",
+      "[type=dir] /var/log",
+      "/var/log/startup.txt = notice.stub",
+      "[perms=0750 uid=100 gid=100] /proc/boot/diagnostic = diagnostic.stub",
+      "[+script] .script = {",
+      "    display_msg Starting synthetic demo",
+      "    on -u 100:100 /proc/boot/telemetry &",
+      "    waitfor /dev/storage 5.0",
+      "    diagnostic &",
+      "}"
+    ],
+    "components.buildfile": [
+      "# Original synthetic inventory; no QNX executable code is distributed.",
+      "[uid=100 gid=100 perms=0750] /proc/boot/telemetry = telemetry.stub",
+      "[uid=0 gid=0 perms=0755] /proc/boot/on = on.stub"
+    ]
+  },
+  "source_sha256": {
+    "corrected.buildfile": "1d16dfce628568cfe37da7d583de9df7593cebb8bbda097af5573f20cabc1aa0",
+    "components.buildfile": "c636d119b05d69a55c622d3d9551f8a7ada2eb1cae0f0046cec392748559dd2b"
+  }
+}

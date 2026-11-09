@@ -1,0 +1,21 @@
+QNX Build Inspector 0.1.0 | broken.buildfile
+2 files, 9 entries, 7 launches | 3 errors, 5 warnings, 1 notes
+Partial static analysis; no compilation, SDK or QNX runtime validation.
+broken.buildfile:12:1 ERROR D201 [high] Duplicate image target /etc/telemetry.conf.
+  Action: Remove the duplicate or intentionally configure +dupignore; mkifs rejects two non-ignored entries.
+broken.buildfile:16:1 ERROR D203 [high] Target /var/log/startup.txt is below a declared link at /var/log.
+  Action: Use a real directory. mkifs does not resolve IFS symlinks in other entry pathnames.
+broken.buildfile:17:1 WARNING F201 [high] Explicit mode 04777 combines world write with set-ID bits on /proc/boot/diagnostic.
+  Action: Review the explicit permissions and ownership; this is a policy review, not proof of exploitability.
+broken.buildfile:20:5 ERROR S301 [high] uid= is not a documented mkifs script modifier.
+  Action: File uid= sets ownership, not process credentials. Review the on -u utility for process identity.
+broken.buildfile:21:5 WARNING L201 [heuristic] Launch '/proc/boot/auditor' is not listed at its candidate image paths.
+  Action: Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.
+broken.buildfile:21:5 WARNING S402 [high] The on wrapper explicitly requests the root identity.
+  Action: Document why this process needs root; consider a dedicated UID and required abilities after target validation.
+broken.buildfile:23:5 WARNING L201 [heuristic] Launch 'waitfor' is not listed at its candidate image paths.
+  Action: Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.
+broken.buildfile:23:5 INFO S304 [heuristic] Foreground launch 'waitfor' precedes another command.
+  Action: Confirm that it exits; a process that remains in the foreground prevents later startup commands.
+broken.buildfile:24:5 WARNING L201 [heuristic] Launch 'collector_missing' is not listed at its candidate image paths.
+  Action: Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.

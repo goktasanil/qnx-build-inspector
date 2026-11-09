@@ -1,0 +1,3 @@
+QNX Build Inspector 0.1.0 | corrected.buildfile
+2 files, 8 entries, 3 launches | 0 errors, 0 warnings, 0 notes
+Partial static analysis; no compilation, SDK or QNX runtime validation.

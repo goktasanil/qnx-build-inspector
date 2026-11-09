@@ -1,0 +1,520 @@
+{
+  "tool": "QNX Build Inspector",
+  "version": "0.1.0",
+  "schema_version": 1,
+  "analysis": "partial-static-analysis",
+  "target": "QNX OS 8.0 mkifs buildfiles",
+  "input": "broken.buildfile",
+  "compiler_or_runtime_validation": false,
+  "host_file_checks": false,
+  "summary": {
+    "files": 2,
+    "entries": 9,
+    "launches": 7,
+    "error": 3,
+    "warning": 5,
+    "info": 1
+  },
+  "coverage_limits": [],
+  "findings": [
+    {
+      "code": "D201",
+      "severity": "error",
+      "confidence": "high",
+      "message": "Duplicate image target /etc/telemetry.conf.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 12,
+        "column": 1
+      },
+      "remedy": "Remove the duplicate or intentionally configure +dupignore; mkifs rejects two non-ignored entries.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.utilities/topic/m/mkifs.html",
+      "related": [
+        {
+          "file": "broken.buildfile",
+          "line": 9,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "code": "D203",
+      "severity": "error",
+      "confidence": "high",
+      "message": "Target /var/log/startup.txt is below a declared link at /var/log.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 16,
+        "column": 1
+      },
+      "remedy": "Use a real directory. mkifs does not resolve IFS symlinks in other entry pathnames.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.utilities/topic/m/mkifs.html",
+      "related": [
+        {
+          "file": "broken.buildfile",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "code": "F201",
+      "severity": "warning",
+      "confidence": "high",
+      "message": "Explicit mode 04777 combines world write with set-ID bits on /proc/boot/diagnostic.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 17,
+        "column": 1
+      },
+      "remedy": "Review the explicit permissions and ownership; this is a policy review, not proof of exploitability.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.utilities/topic/m/mkifs.html",
+      "related": []
+    },
+    {
+      "code": "S301",
+      "severity": "error",
+      "confidence": "high",
+      "message": "uid= is not a documented mkifs script modifier.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 20,
+        "column": 5
+      },
+      "remedy": "File uid= sets ownership, not process credentials. Review the on -u utility for process identity.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.building/topic/buildfiles/nto_script.html",
+      "related": []
+    },
+    {
+      "code": "L201",
+      "severity": "warning",
+      "confidence": "heuristic",
+      "message": "Launch '/proc/boot/auditor' is not listed at its candidate image paths.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 21,
+        "column": 5
+      },
+      "remedy": "Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.building/topic/buildfiles/nto_script.html",
+      "related": []
+    },
+    {
+      "code": "S402",
+      "severity": "warning",
+      "confidence": "high",
+      "message": "The on wrapper explicitly requests the root identity.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 21,
+        "column": 5
+      },
+      "remedy": "Document why this process needs root; consider a dedicated UID and required abilities after target validation.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.utilities/topic/o/on.html",
+      "related": []
+    },
+    {
+      "code": "L201",
+      "severity": "warning",
+      "confidence": "heuristic",
+      "message": "Launch 'waitfor' is not listed at its candidate image paths.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 23,
+        "column": 5
+      },
+      "remedy": "Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.building/topic/buildfiles/nto_script.html",
+      "related": []
+    },
+    {
+      "code": "S304",
+      "severity": "info",
+      "confidence": "heuristic",
+      "message": "Foreground launch 'waitfor' precedes another command.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 23,
+        "column": 5
+      },
+      "remedy": "Confirm that it exits; a process that remains in the foreground prevents later startup commands.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.building/topic/buildfiles/nto_script.html",
+      "related": []
+    },
+    {
+      "code": "L201",
+      "severity": "warning",
+      "confidence": "heuristic",
+      "message": "Launch 'collector_missing' is not listed at its candidate image paths.",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 24,
+        "column": 5
+      },
+      "remedy": "Add the executable/alias or document the filesystem that makes it available before this launch. This is not proof it is absent at runtime.",
+      "reference": "https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.building/topic/buildfiles/nto_script.html",
+      "related": []
+    }
+  ],
+  "entries": [
+    {
+      "target": "/proc/boot/.boot",
+      "source": null,
+      "kind": "bootstrap",
+      "attributes": {
+        "virtual": "x86_64,bios"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 2,
+        "column": 1
+      },
+      "content": [
+        [
+          3,
+          "    startup-x86"
+        ],
+        [
+          4,
+          "    PATH=/proc/boot:/bin"
+        ],
+        [
+          5,
+          "    procnto-smp-instr"
+        ]
+      ],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/telemetry",
+      "source": "telemetry.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "uid": "100",
+        "gid": "100",
+        "perms": "0750"
+      },
+      "position": {
+        "file": "components.buildfile",
+        "line": 2,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/on",
+      "source": "on.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "uid": "0",
+        "gid": "0",
+        "perms": "0755"
+      },
+      "position": {
+        "file": "components.buildfile",
+        "line": 3,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/etc/telemetry.conf",
+      "source": null,
+      "kind": "file",
+      "attributes": {
+        "search": "payload"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 9,
+        "column": 1
+      },
+      "content": [
+        [
+          10,
+          "interval=5"
+        ]
+      ],
+      "selected": true
+    },
+    {
+      "target": "/etc/telemetry.conf",
+      "source": null,
+      "kind": "file",
+      "attributes": {
+        "search": "payload"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 12,
+        "column": 1
+      },
+      "content": [
+        [
+          13,
+          "interval=60"
+        ]
+      ],
+      "selected": true
+    },
+    {
+      "target": "/var/log",
+      "source": "/tmp/log",
+      "kind": "link",
+      "attributes": {
+        "search": "payload",
+        "type": "link"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 15,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/var/log/startup.txt",
+      "source": "payload/notice.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 16,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/diagnostic",
+      "source": "diagnostic.stub",
+      "kind": "file",
+      "attributes": {
+        "search": "payload",
+        "perms": "04777",
+        "uid": "0"
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 17,
+        "column": 1
+      },
+      "content": [],
+      "selected": true
+    },
+    {
+      "target": "/proc/boot/.script",
+      "source": null,
+      "kind": "script",
+      "attributes": {
+        "search": "payload",
+        "script": true
+      },
+      "position": {
+        "file": "broken.buildfile",
+        "line": 18,
+        "column": 1
+      },
+      "content": [
+        [
+          19,
+          "    display_msg Starting synthetic demo"
+        ],
+        [
+          20,
+          "    [uid=100] telemetry &"
+        ],
+        [
+          21,
+          "    on -u 0 /proc/boot/auditor &"
+        ],
+        [
+          22,
+          "    on -u 100:100 /proc/boot/telemetry &"
+        ],
+        [
+          23,
+          "    [+external] waitfor /dev/storage"
+        ],
+        [
+          24,
+          "    collector_missing &"
+        ]
+      ],
+      "selected": true
+    }
+  ],
+  "launches": [
+    {
+      "command": "telemetry",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 20,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/telemetry",
+        "/bin/telemetry"
+      ],
+      "modifiers": {
+        "uid": "100"
+      }
+    },
+    {
+      "command": "on",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 21,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/on",
+        "/bin/on"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "/proc/boot/auditor",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 21,
+        "column": 5
+      },
+      "background": true,
+      "identity": "requested:0",
+      "resolution": "not-listed",
+      "candidates": [
+        "/proc/boot/auditor"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "on",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 22,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/on",
+        "/bin/on"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "/proc/boot/telemetry",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 22,
+        "column": 5
+      },
+      "background": true,
+      "identity": "requested:100:100",
+      "resolution": "listed",
+      "candidates": [
+        "/proc/boot/telemetry"
+      ],
+      "modifiers": {}
+    },
+    {
+      "command": "waitfor",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 23,
+        "column": 5
+      },
+      "background": false,
+      "identity": "inherited/unknown",
+      "resolution": "not-listed",
+      "candidates": [
+        "/proc/boot/waitfor",
+        "/bin/waitfor"
+      ],
+      "modifiers": {
+        "external": true
+      }
+    },
+    {
+      "command": "collector_missing",
+      "position": {
+        "file": "broken.buildfile",
+        "line": 24,
+        "column": 5
+      },
+      "background": true,
+      "identity": "inherited/unknown",
+      "resolution": "not-listed",
+      "candidates": [
+        "/proc/boot/collector_missing",
+        "/bin/collector_missing"
+      ],
+      "modifiers": {}
+    }
+  ],
+  "dependencies": [
+    {
+      "kind": "include",
+      "source": "components.buildfile",
+      "from": {
+        "file": "broken.buildfile",
+        "line": 8,
+        "column": 1
+      },
+      "resolved": "components.buildfile"
+    }
+  ],
+  "sources": {
+    "broken.buildfile": [
+      "# Original synthetic review fixture. Not a bootable image.",
+      "[virtual=x86_64,bios] .boot = {",
+      "    startup-x86",
+      "    PATH=/proc/boot:/bin",
+      "    procnto-smp-instr",
+      "}",
+      "[search=payload]",
+      "[+include] components.buildfile",
+      "/etc/telemetry.conf = {",
+      "interval=5",
+      "}",
+      "/etc/telemetry.conf = {",
+      "interval=60",
+      "}",
+      "[type=link] /var/log = /tmp/log",
+      "/var/log/startup.txt = payload/notice.stub",
+      "[perms=04777 uid=0] /proc/boot/diagnostic = diagnostic.stub",
+      "[+script] .script = {",
+      "    display_msg Starting synthetic demo",
+      "    [uid=100] telemetry &",
+      "    on -u 0 /proc/boot/auditor &",
+      "    on -u 100:100 /proc/boot/telemetry &",
+      "    [+external] waitfor /dev/storage",
+      "    collector_missing &",
+      "}"
+    ],
+    "components.buildfile": [
+      "# Original synthetic inventory; no QNX executable code is distributed.",
+      "[uid=100 gid=100 perms=0750] /proc/boot/telemetry = telemetry.stub",
+      "[uid=0 gid=0 perms=0755] /proc/boot/on = on.stub"
+    ]
+  },
+  "source_sha256": {
+    "broken.buildfile": "85fe0d77b6f5be16d443019899b047e1552eee01f9d375263c2a193a07cce008",
+    "components.buildfile": "c636d119b05d69a55c622d3d9551f8a7ada2eb1cae0f0046cec392748559dd2b"
+  }
+}
